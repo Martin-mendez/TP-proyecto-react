@@ -1,2 +1,2 @@
 # TP-proyecto-react
-integrantes: Mendez Martin abhay rodriguez y rodriguez ignacio
+integrantes: Mendez Martin Abhay Rodriguez y Rodriguez Ignacio
