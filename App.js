@@ -1,53 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import CommentList from './commentlist';
-import CommentForm from './commentform';
-import './App.css';
+import React from "react";
+import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom"; // Importa Link
+import "bootstrap/dist/css/bootstrap.min.css";
+
+
 
 function App() {
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    // Cargar los comentarios desde el localStorage cuando la aplicación se inicia
-    const storedComments = localStorage.getItem('comments');
-    if (storedComments) {
-      setComments(JSON.parse(storedComments));
-    }
-  }, []);
-
-  const handleCommentSubmit = ({ text, image }) => {
-    let imageSrc = null;
-
-    if (image) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        imageSrc = e.target.result;
-        const newComment = { text, image: imageSrc };
-        const updatedComments = [...comments, newComment];
-        
-        // Guardar los comentarios en el localStorage
-        localStorage.setItem('comments', JSON.stringify(updatedComments));
-
-        setComments(updatedComments);
-      };
-      reader.readAsDataURL(image);
-    } else {
-      const newComment = { text, image: null };
-      const updatedComments = [...comments, newComment];
-      
-      // Guardar los comentarios en el localStorage
-      localStorage.setItem('comments', JSON.stringify(updatedComments));
-
-      setComments(updatedComments);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    window.location.href = "/otra-pagina";
   };
 
   return (
     <div className="container">
-      <h1>Blog la 35</h1>
-      <CommentList comments={comments} />
-      <CommentForm onCommentSubmit={handleCommentSubmit} />
+      <h1>Formulario de Ejemplo</h1>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Password" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="Check me out" />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+
+      {/* Agrega un Link para redirigir a la otra página */}
+      <Link to="/otra-pagina">Ir a Otra Página</Link>
     </div>
   );
 }
 
 export default App;
+
